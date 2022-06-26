@@ -40,7 +40,6 @@ export default {
     async recommendMusic() {
       const res = await recommendMusicAPI();
       this.reList = res.result;
-      console.log(this.reList);
     },
     async newMusic() {
       const res = await newMusicAPI();

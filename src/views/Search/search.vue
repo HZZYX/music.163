@@ -6,8 +6,9 @@
       v-model="keyword"
       @keydown.enter="playSearch"
     />
+
     <!-- 搜索下容器 -->
-    <div class="search_wrap">
+    <div class="search_wrap" v-show="isShow">
       <!-- 标题 -->
       <p class="hot_title">热门搜索</p>
       <!-- 热搜关键词容器 -->
@@ -23,6 +24,22 @@
         </span>
       </div>
     </div>
+
+    <!-- 搜索结果 -->
+    <div class="search_wrap" v-show="!isShow">
+      <!-- 标题 -->
+      <p class="hot_title">最佳匹配</p>
+      <van-cell
+        center
+        :title="song.name"
+        v-for="song in songList"
+        :key="song.id"
+      >
+        <template #right-icon>
+          <van-icon name="play-circle-o" size="0.6rem" />
+        </template>
+      </van-cell>
+    </div>
   </div>
 </template>
 
@@ -34,6 +51,8 @@ export default {
     return {
       keyword: "",
       hotArr: [],
+      isShow: true,
+      songList: [],
     };
   },
   created() {
@@ -43,7 +62,6 @@ export default {
     async getHotArr() {
       const res = await hotSearch();
       this.hotArr = res.result.hots;
-      // console.log(res.result.hots);
     },
     changeKeyWord(word) {
       this.keyword = word;
@@ -53,7 +71,9 @@ export default {
         keywords: this.keyword,
         limit: 20,
       });
+      this.isShow = !this.isShow;
       console.log(res.result.songs);
+      this.songList = res.result.songs;
     },
   },
 };
