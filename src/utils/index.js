@@ -35,3 +35,17 @@ export const searchResultList = (params) =>
     method: "GET",
     params,
   });
+
+// 播放页 - 获取歌曲详情
+export const getSongByIdAPI = (id) =>
+  requests({
+    url: `/song/detail?ids=${id}`,
+    method: "GET",
+  });
+
+// 播放页 - 获取歌词
+export const getLyricByIdAPI = (id) =>
+  requests({
+    url: `/lyric?id=${id}`,
+    method: "GET",
+  });

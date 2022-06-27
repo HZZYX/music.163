@@ -8,13 +8,13 @@ export default [
   {
     path: "/Layout",
     name: "Layout",
-    redirect:"/Layout/Home",
+    redirect: "/Layout/Home",
     component: () => import("../views/Layout/layout.vue"),
     children: [
       {
         path: "Home",
         name: "Home",
-        meta: { title: "首页" },//meta保存路由对象的额外信息
+        meta: { title: "首页" }, //meta保存路由对象的额外信息
         component: () => import("../views/Home/home.vue"),
       },
       {
@@ -22,6 +22,12 @@ export default [
         name: "Search",
         meta: { title: "搜索" },
         component: () => import("../views/Search/search.vue"),
+      },
+      {
+        path: "Play",
+        name: "Play",
+        meta: { title: "播放音乐" },
+        component: () => import("../views/Play/play.vue"),
       },
     ],
   },

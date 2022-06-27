@@ -11,10 +11,12 @@ import {
   Cell,
   Icon,
   Field,
-  Search
+  Search,
+  List
 } from "vant";
 
 
+Vue.use(List);
 Vue.use(Search);
 Vue.use(Field);
 Vue.use(Icon);
