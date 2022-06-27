@@ -122,13 +122,17 @@ export default {
       调用的 debounced（防抖动）函数返回是最后一次 func 调用的结果。
       返回类型是一个函数
     */
-    playSearch: debounce(async function () {
+    async getList() {
       // 触发查询结果方法
       const res = await searchResultList({
         keywords: this.keyword,
         limit: 20,
         offset: (this.page - 1) * 20,
       });
+      return res;
+    },
+    playSearch: debounce(async function () {
+      const res = await this.getList();
       if (res.code === 400 || res.result.songs === undefined) {
         this.songList = [];
         return;
@@ -147,11 +151,8 @@ export default {
     async onLoad() {
       // 触底事件(要加载下一页的数据咯), 内部会自动把loading改为true
       this.page++;
-      const res = await searchResultList({
-        keywords: this.keyword,
-        limit: 20,
-        offset: (this.page - 1) * 20,
-      });
+      const res = await this.getList();
+
       if (res.code === 400 || res.result.songs === undefined) {
         this.finished = true; // 全部加载完成(list不会在触发onload方法)
         this.loading = false; // 本次加载完成
